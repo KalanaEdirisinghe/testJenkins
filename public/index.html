@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Express Table Project</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Term</th>
+      <th>Description</th>
+      <th>References</th>
+    </tr>
+    
+  </table>
+
+  <script>
+    fetch('/data')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.createElement('tbody');
+        data.data.forEach(item => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.ID}</td>
+            <td>${item.Term}</td>
+            <td>${item.Description}</td>
+            <td>${item.References}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+        document.querySelector('table').appendChild(tableBody);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html>
